@@ -5,12 +5,15 @@ Getting Other Targets Hackers Always Miss
 #AWS
  
 #AWS get IPs:
+
 wget https://ip-ranges.amazonaws.com/ip-ranges.json -O amazon_ips.json
 
 #get list - one CIDR range per line:
+
 cat amazon_ips.json | jq -r '[.prefixes[] | select(.service=="EC2").ip_prefix] | .[]' 
 
 #get list - all CIDR ranges on a single comma-ceparated line:
+
 cat amazon_ips.json | jq -r '[.prefixes[] | select(.service=="EC2").ip_prefix] | .[]' | sed -z 's/\n/,/g;s/,$/\n/'
 
 
